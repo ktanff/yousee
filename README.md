@@ -17,4 +17,15 @@ Secret: "Sharp Eye"
 
 Passcode = 2350
 
-Covered text
+Result covered text :
+```
+(Ss:m   I7hE1C   vprjaEge   Aj   krJM   ecpr   Qn6[_]   4nerv5u   rEtse   &7yV   euO   1e$Ae
+```
+
+That simply read by anyone  who knows the passcode, as follows;
+```
+
+(Ss:m   I7hE1C   vprjaEge   Aj   krJM   ecpr   Qn6[_]   4nerv5u   rEtse   &7yV   euO   1e$Ae
+ 2        3          5     0      2       3        5   0           2        3    ---       5            
+```
+
