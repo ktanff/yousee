@@ -31,3 +31,9 @@ That simply is read by anyone who knows the *passcode*, as follows;
 
 - The above example assumes that the space character is kept.
 - Let KeepSpaces=No, a coverage message might lbe like as follows;
+
+
+
+```
+qSd=aAAk   brhVi}e   QtLu   r-zxact   jm7>y   Nro   bgp   dI@   ac9pEhg   85]_.   ty   Fue7ss|
+```
