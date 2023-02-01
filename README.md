@@ -40,3 +40,6 @@ qSd=aAAk   brhVi}e   QtLu   r-zxact   jm7>y   Nro   bgp   ac9pEhg   85]_.   ty  
  2           3       ----       5    0         2      3       5    0         2     3
  S           h                  a              r      p       E              y     e
 ```
+
+# UCOH
+-- The usage syntax is the same as for *uc*, but it generates with different coverage patterns - somehow might get confused more by others.
