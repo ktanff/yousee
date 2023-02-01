@@ -45,4 +45,4 @@ qSd=aAAk   brhVi}e   QtLu   r-zxact   jm7>y   Nro   bgp   ac9pEhg   85]_.   ty  
 -- The usage syntax is the same as for *uc*, but it generates with different coverage patterns - somehow might get confused more by others.
 
 # Uncover
-Both *uc* and *ucoh* covered message can be uncovered by *uncover* that producing uncovered message in two stages; the so-called "semi-uncovered" and the bare-uncovered message.
+Both *uc* and *ucoh* covered messages can be uncovered by *uncover* that producing uncovered message in two stages; the so-called "semi-uncovered" and the bare-uncovered message.
