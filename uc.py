@@ -1,8 +1,21 @@
 def cover(secret,pcode,keepSpaces):
-	ls=[3]+[4]*4+[5]*5+[6,7,8]*6+[9]*4+[10]*2
-	a='aabcdeeefghiijklmnoopqrrssttuuvwxyz'*4+'0123456789'*6+'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%&-?'*2+'.:;,()[]{}<>=+*^/|\\\'\"_'
+	ls=[3]+[4]*2+[5]*4+[6]*5+[7]*7+[8]*6+[9]*5
+	charpool='aabcdeeefghiijklmnoopqrrssttuuvwxyz'*2+'0123456789'*5+'ABCDEFGHIJKLMNOPQRSTUVWXYZ!!@##$$%&&-??'+'.:;,()[]{}<>=+*^/|\\\'\"_'
 	with open('voc.txt') as f:
 		voc=[r.strip() for r in f]
+	psmap={}
+	for v in voc:
+		for i,a in enumerate(v):
+			if a not in psmap:
+				psmap[a]=[]
+			g=i-len(psmap[a])+1
+			if g>0:
+				psmap[a]+=[[] for _ in range(g)]
+			psmap[a][i].append(v)
+	#print(psmap)
+	#print([len(psmap[i]) for i in psmap])
+	print([p for p in *(psmap[i] for i in psmap)])
+	exit()	
 	
 	from random import choice
 	from random import choices
@@ -16,7 +29,7 @@ def cover(secret,pcode,keepSpaces):
 	i=j=0
 	r=100
 	while i<l and j<288:
-		cover=choices(a,k=choice(ls))
+		cover=choices(charpool,k=choice(ls))
 		clen=len(cover)
 		p=int(pcode[j%n])
 		if p<=clen:
