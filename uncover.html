@@ -1,0 +1,51 @@
+<html>
+<head>
+<script>
+let uc;
+function uncover_fun(coverage, pcode) {
+  var clen, j, n, p, s, semis;
+  n = pcode.length;
+  uc = "";
+  semis = [];
+  j = 0;
+  for (var cover of coverage.split(/\s+/)) {
+    clen = cover.length;
+    p = parseInt(pcode[j % n]) - 1;
+    if (p < clen) {
+      j++;
+      semi = cover;
+      if (p >= 0) {
+        s = semi[p];
+        if (s === "_" && (p === 0 || semi[p - 1] === "[") && semi[p + 1] === "]") {
+          s = " ";
+        }
+        uc = uc + s;
+        semi = semi.slice(0, p) + "<b>" + s + "</b>" + semi.slice(p + 1);
+      }
+      semis.push(semi);
+    }
+  }
+  return semis.join("   ");
+}
+
+function uncover()
+{
+  var coverage, pcode;
+  coverage = document.getElementById("coverage").value;
+  pcode = document.getElementById("pcode").value;
+  document.getElementById("semi").innerHTML = uncover_fun(coverage,pcode);
+  document.getElementById("relax").innerHTML = ""
+}
+function relax()
+{
+  document.getElementById("relax").innerHTML = uc
+}
+</script>
+</head>
+<body style="margin:auto; width:25em;">
+<p>Coverage:<br/> <textarea id="coverage" rows="2" cols="50" maxlength=40000></textarea></p>
+<p>Passcode: <input type="password" size=8 maxlength=32 id="pcode"></p>
+<p><button onclick="uncover()">Uncover</button>&nbsp;&nbsp;&nbsp;<code id="semi"></code></p>
+<p><button onclick="relax()">Relax</button>&nbsp;&nbsp;&nbsp;<code id="relax"></code></p>
+</body>
+</html>
