@@ -37,6 +37,20 @@ function choices(a,k){
   }
   return r;
 }
+function weighted_choice(pool,weights){
+  var i = 1;
+  while( i<weights.len ) {
+	  weights[i]+=weights[i-1];
+	  i++;
+  }
+  var s = weights[weight.len-1];
+  var r = Math.random() * s;
+  i = 0;
+  while( weights[i] < r ) {
+	  i++;
+  }
+  return pool[i];
+}
 function cover_oh_fun(secret, pcode, keepSpaces) {
     var l = secret.length;
     var n = pcode.length;
@@ -44,12 +58,9 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
     var i = 0;
     var j = 0;
     while (i < l && j < 288) {
-        var cover = [];
-        for (var k = 0; k < 9; k++) {
-            cover.push(charpool[Math.floor(Math.random() * charpool.length)]);
-        }
+        var cover = cover=choices(charpool,9);
         var p = parseInt(pcode[j % n]);
-        if (p === 0 || (p >= 4 && Math.floor(Math.random() * 5) === 0)) {
+        if (p === 0 || (p >= 4 && randint(0,5) === 0)) {
             if (p === 0) {
                 p = 10;
             } else {
@@ -61,17 +72,14 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                 var filteredVoc = voc.filter(function(v) {
                     return v.length < p;
                 });
-                cover = filteredVoc[Math.floor(Math.random() * filteredVoc.length)];
+                cover = choice(filteredVoc);
                 if (s !== sl) {
                     cover = cover.toUpperCase();
                 }
             } else {
-                var lim = Math.min(p - 1, Math.floor(Math.random() * 7) + 3);
+                var lim = Math.min(p - 1,randint(3,10));
                 if ('0' <= s && s <= '9') {
-                    cover = [];
-                    for (var k = 0; k < lim; k++) {
-                        cover.push(choices('0011122234567899')[Math.floor(Math.random() * 20)]);
-                    }
+                    cover = choices('0011122234567899',lim);
                 } else {
                     cover = cover.slice(0, lim);
                 }
@@ -92,7 +100,7 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     var filteredVoc = voc.filter(function(v) {
                         return v.length <= p;
                     });
-                    pre = filteredVoc[Math.floor(Math.random() * filteredVoc.length)];
+                    pre = choice(filteredVoc);
                     pool = psmap[sl][p - pre.length];
                 }
                 if (pool.length > 1) {
@@ -104,7 +112,7 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     var weights = recpw.map(function(z) {
                         return Math.floor(m / z);
                     });
-                    cover = pool[choices(weights)];
+                    cover = weighted_choice(pool,weights);
                     cover = pre + cover;
                     if (s !== sl) {
                         cover = cover.toUpperCase();
@@ -113,10 +121,7 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
             }
             if (cover[p] !== s) {
                 if ('0' <= s && s <= '9') {
-                    cover = [];
-                    for (var k = 0; k < 9; k++) {
-                        cover.push(choices('0011122234567899')[Math.floor(Math.random() * 20)]);
-                    }
+                    cover = choices('0011122234567899',9);
                 }
                 if (s === ' ') {
                     cover[p] = '_';
@@ -141,7 +146,7 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
     if (i < l) {
 		throw new Error("FAIL: too long coverage; try with another passcode or a shorter secret.");
     }
-    coverage = '  ' + coverage.join("   ");
+    coverage = "   "+coverage.join("   ");
     return coverage;
 }
 
