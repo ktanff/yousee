@@ -95,7 +95,7 @@ function cover(){
 	const secret = document.getElementById("secret").value;
 	const pcode = document.getElementById("pcode").value;
 	if( !(/^\d+$/.test(pcode)) || parseInt(pcode)==0 ){
-		alert("Please enter a string of digits for Passcode. Leading zeros are allowed but at least one non-zero digit must be there.");
+		alert("Please enter a digit-only string for Passcode. Leading zeros are allowed, but at least one non-zero digit must be there.");
 		return;
 	}
 	const keepSpaces = document.getElementById("keepSpaces").checked;
@@ -105,7 +105,7 @@ function cover(){
 </script>
 </head>
 <body style="margin:auto; width:25em;">
-<p>Secret: <textarea id="secret" rows="2" cols="45" maxlength="4000" style="color: transparent;text-shadow: 0 0 8px rgba(0,0,0,0.5);"></textarea></p>
+<p>Secret: <textarea id="secret" rows="2" cols="45" maxlength="4000" style="color: transparent;text-shadow: 0 0 6px rgba(0,0,0,0.2);"></textarea></p>
 <p>Passcode: <input type="password" size="8" maxlength="32" id="pcode">&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="keepSpaces">
 <label for="keepSpaces"> Keep spaces</label></p>
