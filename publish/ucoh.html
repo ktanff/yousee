@@ -136,11 +136,11 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
         }
         j += 1;
         coverage.push(cover);
-        coverage = coverage + '  ' + cover.join('') + ' ';
     }
-	if (i < l) {
+    if (i < l) {
 		throw new Error("FAIL: too long coverage; try with another passcode or a shorter secret.");
-	}
+    }
+    coverage = '  ' + coverage.join("   ");
     return coverage;
 }
 
