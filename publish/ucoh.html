@@ -1,0 +1,120 @@
+const charpool = 'aabcdeeefghiijklmnoopqrrssttuuvwxyz0123456789'.repeat(2) + 'ABCDEFGHIJKLMNOPQRSTUVWXYZ.:;,()[]{}<>=+*^/|\\\'\"_' + '!!@';
+const psmap = {};
+for (const v of voc) {
+    for (let i = 0; i < v.length; i++) {
+        const a = v[i];
+        if (!psmap[a]) {
+            psmap[a] = Array.from({ length: 9 }, () => []);
+        }
+        if (i < 9) {
+            psmap[a][i].push(v);
+        }
+    }
+}
+const minpsf = {};
+for (const v of voc) {
+    minpsf[v] = Math.min(...v.map((a, i) => psmap[a][i].length));
+}
+
+function cover(secret, pcode, keepSpaces, voc, charpool, minpsf, psmap) {
+    var l = secret.length;
+    var n = pcode.length;
+    var coverage = [];
+    var i = 0;
+    var j = 0;
+    while (i < l && j < 288) {
+        var cover = [];
+        for (var k = 0; k < 9; k++) {
+            cover.push(charpool[Math.floor(Math.random() * charpool.length)]);
+        }
+        var p = parseInt(pcode[j % n]);
+        if (p === 0 || (p >= 4 && Math.floor(Math.random() * 5) === 0)) {
+            if (p === 0) {
+                p = 10;
+            } else {
+                j -= 1;
+            }
+            var s = cover[cover.length - 1];
+            var sl = s.toLowerCase();
+            if (psmap.hasOwnProperty(sl)) {
+                var filteredVoc = voc.filter(function(v) {
+                    return v.length < p;
+                });
+                cover = filteredVoc[Math.floor(Math.random() * filteredVoc.length)];
+                if (s !== sl) {
+                    cover = cover.toUpperCase();
+                }
+            } else {
+                var lim = Math.min(p - 1, Math.floor(Math.random() * 7) + 3);
+                if ('0' <= s && s <= '9') {
+                    cover = [];
+                    for (var k = 0; k < lim; k++) {
+                        cover.push(choices('0011122234567899')[Math.floor(Math.random() * 20)]);
+                    }
+                } else {
+                    cover = cover.slice(0, lim);
+                }
+                cover = cover.join("");
+            }
+        } else {
+            var s = secret[i];
+            if (s === ' ' && !keepSpaces) {
+                i += 1;
+                continue;
+            }
+            var sl = s.toLowerCase();
+            p -= 1;
+            if (psmap.hasOwnProperty(sl)) {
+                var pool = psmap[sl][p];
+                var pre = "";
+                if (pool.length <= 1 && p >= 4) {
+                    var filteredVoc = voc.filter(function(v) {
+                        return v.length <= p;
+                    });
+                    pre = filteredVoc[Math.floor(Math.random() * filteredVoc.length)];
+                    pool = psmap[sl][p - pre.length];
+                }
+                if (pool.length > 1) {
+                    var recpw = pool.map(function(v) {
+                        return minpsf[v];
+                    });
+                    var m = Math.max.apply(null, recpw);
+                    m = m + Math.floor(m / 2);
+                    var weights = recpw.map(function(z) {
+                        return Math.floor(m / z);
+                    });
+                    cover = pool[choices(weights)];
+                    cover = pre + cover;
+                    if (s !== sl) {
+                        cover = cover.toUpperCase();
+                    }
+                }
+            }
+            if (cover[p] !== s) {
+                if ('0' <= s && s <= '9') {
+                    cover = [];
+                    for (var k = 0; k < 9; k++) {
+                        cover.push(choices('0011122234567899')[Math.floor(Math.random() * 20)]);
+                    }
+                }
+                if (s === ' ') {
+                    cover[p] = '_';
+                    if (p > 0) {
+                        cover[p - 1] = '[';
+                    }
+                    if (p < 8) {
+                        cover[p + 1] = ']';
+                    } else {
+                        cover.push(']');
+                    }
+                } else {
+                    cover[p] = s;
+                }
+                cover = cover.join("");
+            }
+            i += 1;
+        }
+        j += 1;
+        coverage.push(cover);
+    }
+}
