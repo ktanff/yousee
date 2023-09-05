@@ -14,8 +14,6 @@ def cover(secret,pcode,keepSpaces):
 			psmap[a][i].append(v)
 	#print(psmap)
 	#print([len(psmap[i]) for i in psmap])
-	print([p for p in *(psmap[i] for i in psmap)])
-	exit()	
 	
 	from random import choice
 	from random import choices
