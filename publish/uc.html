@@ -102,7 +102,7 @@ function cover(){
 </head>
 <body style="margin:auto; width:25em;">
 <p>Secret: <textarea id="secret" rows="2" cols="45" maxlength=4000></textarea></p>
-<p>Passcode: <input type="password" size=8 maxlength=32 id="pcode">&nbsp;&nbsp;&nbsp;
+<p>Passcode: <input type="password" pattern="\d{1:32}" id="pcode">&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="keepSpaces">
 <label for="keepSpaces"> Keep spaces</label></p>
 <p><br><button onclick="cover()">Cover</button></p>
