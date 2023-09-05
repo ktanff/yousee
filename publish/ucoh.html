@@ -21,7 +21,8 @@ for (const v of voc) {
 }
 const minpsf = {};
 for (const v of voc) {
-    minpsf[v] = Math.min(...v.map((a, i) => psmap[a][i].length));
+	u=v.split('');
+	minpsf[v] = Math.min(...u.map((a, i) => psmap[a][i].length));
 }
 function randint(a,b){
   return Math.floor(a+(b-a)*Math.random());
