@@ -43,7 +43,7 @@ function weighted_choice(pool,weights){
 	  weights[i]+=weights[i-1];
 	  i++;
   }
-  var s = weights[weight.len-1];
+  var s = weights[weights.len-1];
   var r = Math.random() * s;
   i = 0;
   while( weights[i] < r ) {
