@@ -95,10 +95,8 @@ function cover(){
 	const secret = document.getElementById("secret").value;
 	const pcode = document.getElementById("pcode").value;
 	const keepSpaces = document.getElementById("keepSpaces").checked;
-	for (let i = 1; i <= 3; i++) {
-		var coverage = cover_fun(secret, pcode, keepSpaces);
-		document.getElementById("coverage"+i).innerHTML = coverage;
-	}
+	var coverage = cover_fun(secret, pcode, keepSpaces);
+	document.getElementById("coverage").innerHTML = coverage;
 }
 </script>
 </head>
@@ -107,10 +105,7 @@ function cover(){
 <p>Passcode: <input type="password" size=8 maxlength=32 id="pcode">&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="keepSpaces">
 <label for="keepSpaces"> Keep spaces</label></p>
-<p><button onclick="cover()">Cover</button>
-<br> <textarea readonly id="coverage1" rows="2" cols="50" maxlength=4000></textarea>
-<br> <br> <textarea readonly id="coverage2" rows="2" cols="50" maxlength=4000></textarea>
-<br> <br> <textarea readonly id="coverage3" rows="2" cols="50" maxlength=4000></textarea>
-</p>
+<p><button onclick="cover()">Cover</button></p>
+<textarea readonly id="coverage" rows="2" cols="50" maxlength=4000></textarea>
 </body>
 </html>
