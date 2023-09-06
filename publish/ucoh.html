@@ -40,7 +40,7 @@ function choices(a,k){
 function weighted_choice(pool,weights){
   var repl = [];
   for( var i = 0; i<pool.length; i++ ) {
-	  repl.push(Array(weights[i]).fill(pool[i]));
+	  repl.push(...Array(weights[i]).fill(pool[i]));
   }
   console.log(...repl);
   return choice(repl);
