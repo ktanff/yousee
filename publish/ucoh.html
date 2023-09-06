@@ -107,11 +107,13 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     var recpw = pool.map(function(v) {
                         return minpsf[v];
                     });
-                    var m = Math.max.apply(null, recpw);
+                    var m = Math.max(...recpw);
                     m = m + Math.floor(m / 2);
                     var weights = recpw.map(function(z) {
                         return Math.floor(m / z);
                     });
+                    console.log(m);
+                    console.log(...weigths);
                     cover = weighted_choice(pool,weights);
                     cover = pre + cover;
                     if (s !== sl) {
@@ -144,7 +146,8 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
         coverage.push(cover);
     }
     if (i < l) {
-		throw new Error("FAIL: too long coverage; try with another passcode or a shorter secret.");
+	    alert("FAIL: too long coverage; try with another passcode or a shorter secret.");
+	    return "";
     }
     coverage = "   "+coverage.join("   ");
     return coverage;
@@ -164,7 +167,7 @@ function cover(){
 </script>
 </head>
 <body style="margin:auto; width:25em;">
-<p>Secret: <textarea id="secret" rows="2" cols="43" maxlength="4000" style="color: transparent;text-shadow: 0 0 6px rgba(0,0,0,0.75);"></textarea></p>
+<p>Secret: <textarea id="secret" rows="2" cols="43" maxlength="4000" style="color: transparent;text-shadow: 0 0 5px rgba(0,0,0,0.8);"></textarea></p>
 <p>Passcode: <input type="password" size="8" maxlength="32" id="pcode">&nbsp;&nbsp;&nbsp;
 <input type="checkbox" id="keepSpaces">
 <label for="keepSpaces"> Keep spaces</label></p>
