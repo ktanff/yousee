@@ -31,25 +31,19 @@ function choice(a){
    return a[randint(0,a.length)];
 }
 function choices(a,k){
-  var r=[]
+  var r=[];
   for ( var i=0; i<k; i++) {
     r[i] = a[randint(0,a.length)];
   }
   return r;
 }
 function weighted_choice(pool,weights){
-  var i = 1;
-  while( i<weights.len ) {
-	  weights[i]+=weights[i-1];
-	  i++;
+  var repl = [];
+  for( var i = 0; i<pool.length; i++ ) {
+	  repl.push(Array(weigths[i]).fill(pool[i]));
   }
-  var s = weights[weights.len-1];
-  var r = Math.random() * s;
-  i = 0;
-  while( weights[i] < r ) {
-	  i++;
-  }
-  return pool[i];
+  console.log(...repl);
+  return choise(repl);
 }
 function cover_oh_fun(secret, pcode, keepSpaces) {
     var l = secret.length;
@@ -104,7 +98,6 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     pool = psmap[sl][p - pre.length];
                 }
                 if (pool.length > 1) {
-			console.log(...pool);
                     var recpw = pool.map(function(v) {
                         return minpsf[v];
                     });
@@ -113,8 +106,6 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     var weights = recpw.map(function(z) {
                         return Math.floor(m / z);
                     });
-                    console.log(m);
-                    console.log(...weights);
                     cover = weighted_choice(pool,weights);
                     cover = pre + cover;
                     if (s !== sl) {
