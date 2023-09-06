@@ -104,6 +104,7 @@ function cover_oh_fun(secret, pcode, keepSpaces) {
                     pool = psmap[sl][p - pre.length];
                 }
                 if (pool.length > 1) {
+			console.log(...pool);
                     var recpw = pool.map(function(v) {
                         return minpsf[v];
                     });
