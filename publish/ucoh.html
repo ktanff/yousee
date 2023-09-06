@@ -40,9 +40,9 @@ function choices(a,k){
 function weighted_choice(pool,weights){
   var repl = [];
   for( var i = 0; i<pool.length; i++ ) {
-	  repl.push(...Array(weights[i]).fill(pool[i]));
+	  var rep = Array(weights[i]).fill(pool[i]);
+	  repl.push(...rep);
   }
-  console.log(...repl);
   return choice(repl);
 }
 function cover_oh_fun(secret, pcode, keepSpaces) {
